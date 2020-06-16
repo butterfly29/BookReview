@@ -1,9 +1,15 @@
 import os
+import json
 
-from flask import Flask, session
-from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+
+import psycopg2
+from pip._vendor import requests
+from flask import jsonify
+from flask import Flask, session, render_template, flash, request
+from flask_session import Session
+
 
 app = Flask(__name__)
 
@@ -18,9 +24,231 @@ Session(app)
 
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
+
+# create "scoped session" that ensures different users interaction with database is kept separate
 db = scoped_session(sessionmaker(bind=engine))
 
 
 @app.route("/")
-def index():
-    return "Project 1: TODO"
+def login():
+    if "name" in session:
+        flash("Already Signed In")
+        return render_template("index.html")
+    else:
+        return render_template("login.html")
+
+
+@app.route("/signin_validation", methods=["POST", "GET"])
+def signin_validation():
+    if request.method == "POST":
+        email = request.form["loginEmail"]
+        password = request.form["loginPassword"]
+
+        check_user = db.execute("from public.users where email = :email"), {
+            "email": email}.fetchcone()
+
+        if check_user:
+            list = []
+            for i in check_user:
+                list.append(i)
+
+            check_name = list[0]
+            check_email = list[1]
+            check_pass = list[2]
+            if check_email == email and check_pass == password:
+                session.permanent = True
+                session["name"] = check_name
+                session["password"] = check_pass
+                session["email"] = check_email
+                flash("Login successful")
+                return render_template("index.html")
+
+            else:
+                flash("Username or Password is incorrect")
+                return render_template("login.html")
+
+        else:
+            flash("You are not registed in this website. Please register first.")
+            return render_template("login.html")
+    else:
+        flash("Login failed")
+        return render_template("login.html")
+
+
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    if "email" in session:
+        email = session["email"]
+        db_user_query = db.execute(
+            "select * from public.users where email = :email", {'email': email}).fetchall()
+        db_review_query = db.execute(
+            " select * from public.reviews where email = :email", {'email': email}).fetchall()
+
+        userInfo = {
+            "name": db_user_query[0][0],
+            "email": session["email"],
+            "password": db_user_query[0][2]
+        }
+        reviewCount = len(db_review_query)
+
+        return render_template("index.html", userInfo=userInfo, reviewedbooks=db_review_query, reviewCount=reviewCount)
+    else:
+        flash("Login first")
+        return render_template("login.html")
+
+
+def search():
+    # define search
+    if request.method == "POST":
+        title = request.form["byTitle"]
+        title = title.title()
+        author = request.form["byAuthor"]
+        year = request.form["byYear"]
+        isbn = request.form["byIsbn"]
+
+        list = []
+        text = None
+        baseUrl = request.base_url
+        if title:
+            result = db.execute(
+                " SELECT * FROM books WHERE title LIKE '%"+title+"%' ;").fetchall()
+            text = title
+        elif author:
+            result = db.execute(
+                " SELECT * FROM books WHERE author LIKE '%"+author+"%' ;").fetchall()
+            text = author
+        elif year:
+            result = db.execute(
+                " SELECT * FROM books WHERE year = :year", {'year': year}).fetchall()
+            text = year
+        else:
+            result = db.execute(
+                " SELECT * FROM books WHERE isbn LIKE '%"+isbn+"%' ;").fetchall()
+            text = isbn
+
+        # if found then save it in the list
+        if result:
+            for i in result:
+                list.append(i)
+            itemsCount = len(list)
+            return render_template('index.html', baseUrl=baseUrl,  items=list, msg="Search result found", text=text, itemsCount=itemsCount)
+        # if not found
+        else:
+            return render_template('index.html', msgNo="Sorry! No books found", text=text)
+
+    return render_template("index.html")
+
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    if request.method == "POST":
+        name = request.form["signupName"]
+        email = request.form["signupEmail"]
+        password = request.form["signupPassword"]
+        # check if email is already in table
+        check_user = db.execute(
+            "select * from public.users where email = :email", {'email': email}).fetchall()
+
+        if check_user:
+            flash("You are already registered.")
+            return render_template("login.html")
+        else:
+            # add new user in database
+            db.execute("INSERT INTO public.users (name, email, password) VALUES (:name, :email , :password)", {
+                "name": name, "email": email, "password": password})
+            db.commit()
+
+            # save the data in session
+            session["name"] = name
+            session["email"] = email
+            session["password"] = password
+
+            flash("Registration successful")
+            return render_template("index.html")
+    else:
+        if "name" in session:
+            flash("You are already registered")
+            return render_template("index.html")
+        else:
+            return render_template("login.html")
+
+
+@app.route("/signout")
+def signout():
+    if "name" in session:
+        session.pop("name", None)
+        session.pop("email", None)
+        session.pop("pasword", None)
+
+        flash("Signed out successfully")
+        return render_template("login.html")
+    else:
+        flash("Already Signed out")
+        return render_template("login.html")
+
+
+@app.route("/book/<string:isbn>", methods=["GET", "POST"])
+def singleBook(isbn):
+    isbn = isbn
+    email = session["email"]
+
+    apiCall = requests.get("https://www.goodreads.com/book/review_counts.json",
+                           params={"key": "qijKUt0YAQZ7izbpOTJQg", "isbns": isbn})
+    apidata = apiCall.json()
+    dbdata = db.execute(
+        " SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+
+    dbreviews = db.execute(
+        'SELECT * FROM reviews WHERE isbn = :isbn', {'isbn': isbn}).fetchall()
+
+    alreadyHasReview = db.execute(
+        'SELECT * FROM public.reviews WHERE isbn = :isbn and email = :email ', {'isbn': isbn, 'email': email}).fetchall()
+    if request.method == 'POST':
+
+        if alreadyHasReview:
+            flash('You alreaddy submitted a review on this book')
+        else:
+            rating = int(request.form['rating'])
+            comment = request.form['comment']
+            email = session['email']
+            isbn = request.form['isbn']
+            db.execute("INSERT into public.reviews (email, rating, comment, isbn) Values (:email, :rating, :comment, :isbn)", {
+                       'email': email, 'rating': rating, 'comment': comment, 'isbn': isbn})
+            db.commit()
+            flash('Your review was added successfully')
+    if apiCall:
+        return render_template('book.html', apidata=apidata, dbdata=dbdata, dbreviews=dbreviews, isbn=isbn)
+    else:
+        flash('Data fetch failed')
+        return render_template('book.html')
+
+
+@app.route("/book/api/<string:isbn>")
+def api(isbn):
+    if 'email' in session:
+        data = db.execute(
+            "SELECT * FROM public.books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+        if data == None:
+            return render_template('404.html')
+        res = requests.get("https://www.goodreads.com/book/review_counts.json",
+                           params={"key": "qijKUt0YAQZ7izbpOTJQg", "isbns": isbn})
+        average_rating = res.json()['books'][0]['average_rating']
+        work_ratings_count = res.json()['books'][0]['work_ratings_count']
+        x = {
+            "title": data.title,
+            "author": data.author,
+            "year": data.year,
+            "isbn": isbn,
+            "review_count": work_ratings_count,
+            "average_rating": average_rating
+        }
+        return jsonify(x)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
