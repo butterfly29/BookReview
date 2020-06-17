@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>{%block tittle%}{%endblock%}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -12,42 +19,33 @@
     />
     <link rel="stylesheet" type="text/css" href="..\css\main.css" />
 
-    <title>{%block tittle%}{%endblock%}</title>
-
     {%block style%} {%endblock%}
-    <style></style>
   </head>
-
   <body>
-    <div id="content">
-      <div class="header">
-        <div id="wrapper">
-          <div id="overlay">
-            <div class="row">
-              <div class="col-md-12, col-sm-12">
-                <h1><strong>BOOK LIBRARY</strong></h1>
-                <p>Read and Review</p>
-              </div>
+    <div id="wrapper">
+      <div id="overlay">
+        <div id="content">
+          <div class="row">
+            <div class="col-md-12, col-sm-12">
+              <h1><strong>BOOK LIBRARY</strong></h1>
+              <p>Read and Review</p>
             </div>
           </div>
         </div>
       </div>
-      <nav class="navbar navbar-expand-lg, navbar-expand-md, navbar-expand-sm">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <ul class="navbar navbar-nav">
-              <li class="active"><a href="/templates/index.html">HOME</a></li>
-              <li><a href="/templates/book.html">BOOKS</a></li>
-              <li><a href="/template/login.html">Logout</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <div class="container">
-        {%block body%} {%endblock%}
-      </div>
     </div>
+    <nav class="navbar navbar-expand-lg, navbar-expand-md, navbar-expand-sm">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <ul class="navbar navbar-nav">
+            <li class="active"><a href="{{url_for('home')}}">HOME</a></li>
+            <li><a href="{{url_for('signout')}}">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {%block body%} {%endblock%}
 
     <!--jquery.js-->
     <script
@@ -69,6 +67,6 @@
     ></script>
     <!--javascript-->
     <script src="..\main.js"></script>
-    {%block script%} {endblock%}
+    {%block script%} {%endblock%}
   </body>
 </html>

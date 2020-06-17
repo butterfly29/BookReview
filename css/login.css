@@ -1,17 +1,13 @@
 body {
-  padding-top: 4.2rem;
-  padding-bottom: 4.2rem;
+  margin: 0;
+  padding: 0;
+}
+#wrapper {
   background-image: url("image1a.jpg");
-  background-color: rgb(220, 232, 201);
   background-size: cover;
   background-repeat: no-repeat;
 }
-.row {
-  margin: 25px 15px 25px 15px;
-  padding: 20px;
-  background-color: rgba(220, 232, 201, 0.7);
-  color: white;
-}
+
 #signinForm input,
 #signupForm input {
   color: #ff105f !important;
@@ -21,11 +17,6 @@ body {
   border-radius: 30px !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   box-shadow: inset 2px 2px 4px #00000059 !important;
-}
-
-.main-menu,
-.footer {
-  display: none;
 }
 .login-wrapper .card {
   background: transparent;
@@ -61,18 +52,6 @@ body {
   color: rgb(61, 61, 61);
 }
 
-/* .form input,
-.form input:actived,
-.form input:focus {
-  border: 0;
-  outline: none;
-  background: transparent;
-  box-shadow: inset -2px -2px 5px #fff, inset 2px 2px 5px #0000001c;
-  border-radius: 30px;
-  color: #ff105f;
-  font-size: 16px;
-} */
-
 .login-btn {
   background: linear-gradient(to right, #ff105f, #ffad06);
   box-shadow: -3px -3px 5px #fff, 2px 2px 5px #0a0a0a47;
@@ -91,28 +70,16 @@ body {
 .form {
   position: relative;
 }
-/* .signup-form {
-  display: none;
-} */
 
 .login-wrapper h4.card-title {
   font-size: 3rem;
   text-align: center;
-  color: #292929;
+  color: white;
 }
 .login-wrapper p.card-text {
   text-align: center;
-  color: #292929;
+  color: white;
   font-size: 2rem;
-  font-family: "Dancing Script", cursive;
-}
-
-.login-panda {
-  width: 60%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  padding: 20px;
 }
 
 @media (max-width: 768px) {

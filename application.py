@@ -3,11 +3,10 @@ import json
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-
+from datetime import timedelta
 import psycopg2
-from pip._vendor import requests
 from flask import jsonify
-from flask import Flask, session, render_template, flash, request
+from flask import Flask, session, render_template, flash, request, url_for, redirect
 from flask_session import Session
 
 
@@ -30,10 +29,10 @@ db = scoped_session(sessionmaker(bind=engine))
 
 
 @app.route("/")
-def login():
+def signin():
     if "name" in session:
         flash("Already Signed In")
-        return render_template("index.html")
+        return redirect(url_for("home"))
     else:
         return render_template("login.html")
 
@@ -41,11 +40,11 @@ def login():
 @app.route("/signin_validation", methods=["POST", "GET"])
 def signin_validation():
     if request.method == "POST":
-        email = request.form["loginEmail"]
-        password = request.form["loginPassword"]
+        email = request.form["signinEmail"]
+        password = request.form["signinPassword"]
 
         check_user = db.execute("from public.users where email = :email"), {
-            "email": email}.fetchcone()
+            "email": email}.fetchone()
 
         if check_user:
             list = []
@@ -61,18 +60,18 @@ def signin_validation():
                 session["password"] = check_pass
                 session["email"] = check_email
                 flash("Login successful")
-                return render_template("index.html")
+                return redirect(url_for("home"))
 
             else:
                 flash("Username or Password is incorrect")
-                return render_template("login.html")
+                return redirect(url_for("signin"))
 
         else:
             flash("You are not registed in this website. Please register first.")
-            return render_template("login.html")
+            return redirect(url_for("signin"))
     else:
         flash("Login failed")
-        return render_template("login.html")
+        return redirect(url_for("signin"))
 
 
 @app.route("/home", methods=["GET", "POST"])
@@ -94,7 +93,7 @@ def home():
         return render_template("index.html", userInfo=userInfo, reviewedbooks=db_review_query, reviewCount=reviewCount)
     else:
         flash("Login first")
-        return render_template("login.html")
+        return redirect(url_for("signin"))
 
 
 def search():
@@ -151,7 +150,7 @@ def register():
 
         if check_user:
             flash("You are already registered.")
-            return render_template("login.html")
+            return redirect(url_for("signin"))
         else:
             # add new user in database
             db.execute("INSERT INTO public.users (name, email, password) VALUES (:name, :email , :password)", {
@@ -164,11 +163,11 @@ def register():
             session["password"] = password
 
             flash("Registration successful")
-            return render_template("index.html")
+            return redirect(url_for("home"))
     else:
         if "name" in session:
             flash("You are already registered")
-            return render_template("index.html")
+            return redirect(url_for("home"))
         else:
             return render_template("login.html")
 
@@ -181,10 +180,10 @@ def signout():
         session.pop("pasword", None)
 
         flash("Signed out successfully")
-        return render_template("login.html")
+        return redirect(url_for("signin"))
     else:
         flash("Already Signed out")
-        return render_template("login.html")
+        return redirect(url_for("signin"))
 
 
 @app.route("/book/<string:isbn>", methods=["GET", "POST"])
