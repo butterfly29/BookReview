@@ -17,36 +17,39 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="..\css\main.css" />
+    <link rel="stylesheet" type="text/css" href="..\static\css\main.css" />
 
     {%block style%} {%endblock%}
   </head>
   <body>
-    <div id="wrapper">
-      <div id="overlay">
-        <div id="content">
-          <div class="row">
-            <div class="col-md-12, col-sm-12">
-              <h1><strong>BOOK LIBRARY</strong></h1>
-              <p>Read and Review</p>
+    <div id="content">
+      <div class="header">
+        <div id="wrapper">
+          <div id="overlay">
+            <div class="row">
+              <div class="col-md-12, col-sm-12">
+                <h1><strong>BOOK LIBRARY</strong></h1>
+                <p>Read and Review</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <nav class="navbar navbar-expand-lg, navbar-expand-md, navbar-expand-sm">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <ul class="navbar navbar-nav">
-            <li class="active"><a href="{{url_for('home')}}">HOME</a></li>
-            <li><a href="{{url_for('signout')}}">Logout</a></li>
-          </ul>
+      <nav class="navbar navbar-expand-lg, navbar-expand-md, navbar-expand-sm">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <ul class="navbar navbar-nav">
+              <li class="active"><a href="{{url_for('home')}}">HOME</a></li>
+
+              <li><a href="{{url_for('signout')}}">Logout</a></li>
+            </ul>
+          </div>
         </div>
+      </nav>
+      <div class="container">
+        {%block body%} {%endblock%}
       </div>
-    </nav>
-
-    {%block body%} {%endblock%}
-
+    </div>
     <!--jquery.js-->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -66,7 +69,7 @@
       crossorigin="anonymous"
     ></script>
     <!--javascript-->
-    <script src="..\main.js"></script>
+    <script src="..\static\js\main.js"></script>
     {%block script%} {%endblock%}
   </body>
 </html>

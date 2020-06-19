@@ -1,0 +1,8 @@
+Insert into users (name, email, password) values (":nicoleta", ":nicoleta@nicoleta.com", ":1234");
+Insert into users (name, email, password) values ("alex", "alex@alex.com", "1234");
+Insert into users (name, email, password) values ("john", "john@john.com", "1234");
+Insert into users (name, email, password) values ("maria", "maria@maria.com", "1234");
+Insert into users (name, email, password) values ("corina", "corina@corina.com", "1234");
+
+
+ 

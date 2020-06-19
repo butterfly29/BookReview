@@ -13,7 +13,7 @@ CREATE TABLE users
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
-    PRIMARY KEY(name)
+    PRIMARY KEY(email)
 
 );
 
