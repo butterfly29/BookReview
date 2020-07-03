@@ -2,3 +2,14 @@ Flask
 Flask-Session
 psycopg2-binary
 SQLAlchemy
+certifi
+chardet
+click
+gunicorn
+idna
+itsdangerous
+Jinja2
+MarkupSafe
+requests
+urllib3
+Werkzeug

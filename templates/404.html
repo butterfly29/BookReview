@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "montserrat", sans-serif;
+            min-height: 100vh;
+            background-image: linear-gradient(125deg, rgb(220, 232, 201), #ffd900);
+        }
+
+        .container {
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            color: rgb(78, 126, 102);
+            ;
+        }
+
+        .container h1 {
+            font-size: 160px;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: 20px;
+            background: url(../static/css/image2a.jpg) center no-repeat;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+
+        }
+
+        .buttons-con .action-link-wrap {
+            margin-top: 40px;
+        }
+
+        .buttons-con .action-link-wrap a {
+            background: #83ca71;
+            padding: 8px 25px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s linear;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .buttons-con .action-link-wrap a:hover {
+            background: #5a5c6c;
+            color: #fff;
+        }
+
+        @media (max-width: 450px) {
+            .message-box {
+                top: 50%;
+                left: 50%;
+                margin-top: -100px;
+                margin-left: -190px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <style>
+
+    </style>
+    <div class="container">
+        <div class="message-box">
+            <h2>Oops! Page not found.</h2>
+            <h1>404</h1>
+            <p>We can't find the page you're looking for.</p>
+            <div class="buttons-con">
+                <div class="action-link-wrap">
+                    <a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a>
+                    <a href="/home" class="link-button">Go to Home Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

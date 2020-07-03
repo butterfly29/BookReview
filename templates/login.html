@@ -17,6 +17,7 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
+    <script src="https://https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="..\static\css\login.css" />
   </head>
 
@@ -30,12 +31,11 @@
               style="
                 display: flex;
                 align-items: center;
-                background-color: rgba(220, 232, 201, 0.7);
+                background-color: rgba(255, 255, 255, 0.5);
               "
             >
               <div class="col-sm-12 col-md-6">
                 <div class="card info mt-4">
-                  <img class="card-img-top" src="" alt="" />
                   <div class="card-body">
                     <h4 class="card-title">Book Library</h4>
                     <p class="card-text">
@@ -46,13 +46,16 @@
               </div>
 
               <div class="col-sm-12 col-md-6 form-column">
-                <div class="card form mt-4">
+                <div
+                  class="card form mt-4"
+                  style="background-color: rgba(255, 255, 255, 0.7);"
+                >
                   <article class="card-body">
                     <p class="sign-up btns float-right btn btn-lg">
                       Register
                     </p>
                     <p
-                      class="btns sign-in card-title mb-4 mt-1 btn btn-lg actived"
+                      class="sign-in btns card-title mb-4 mt-1 btn btn-lg actived"
                     >
                       Sign in
                     </p>
@@ -84,7 +87,9 @@
                           />
                         </div>
                         <div class="form-group">
-                          <a class="float-right" href="#">Forgot?</a>
+                          <a class="float-right" href="#"
+                            >Forgot your Password?</a
+                          >
                           <label>Your password</label>
                           <input
                             name="signinPassword"
@@ -107,7 +112,7 @@
                           </button>
                         </div>
                       </form>
-
+                      <!--register form-->
                       <form
                         id="signupForm"
                         class="signup-form hide"
@@ -143,18 +148,18 @@
                             placeholder="******"
                             type="password"
                             required
-                            onkeyup="check();"
+                            onkeyup="check()"
                           />
                         </div>
                         <div class="form-group">
                           <label>Confirm password</label>
-                          <span class="badge confirm-pass-message"> ... </span>
+                          <span class="badge confirm-pass-message"> </span>
                           <input
                             id="confirm-password"
                             class="form-control confirm-password"
                             placeholder="******"
                             type="password"
-                            onkeyup="check();"
+                            onkeyup="check()"
                           />
                         </div>
                         <div class="form-group">
@@ -207,6 +212,5 @@
     ></script>
     <!--javascript-->
     <script type="text/javascript" src="..\static\js\login.js"></script>
-    <script type="text/javascript" src="..\static\js\main.js"></script>
   </body>
 </html>

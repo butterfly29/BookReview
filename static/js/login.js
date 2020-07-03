@@ -9,13 +9,13 @@ const confirmPassword = document.querySelector("#confirm-password");
 const confirmPassMessage = document.querySelector(".confirm-pass-message");
 
 // window.addEventListener("load", () => {
-//   // signupForm.classList.add("hide");
-//   // confirmPassMessage.classList.toggle("hide");
+// // signupForm.classList.add("hide");
+// // confirmPassMessage.classList.toggle("hide");
 // });
 
 // confirm password validation
 var check = function () {
-  if (signupPassword.value == confirmPassword.value) {
+  if (signupPassword.value === confirmPassword.value) {
     confirmPassMessage.style.color = "#81f581";
     confirmPassMessage.textContent = "password matched";
   } else {
@@ -25,7 +25,7 @@ var check = function () {
 };
 
 signupbtn.addEventListener("click", () => {
-  if (signupbtn.classList.contains("actived") == false) {
+  if (signupbtn.classList.contains("actived") === false) {
     signupbtn.classList.add("actived");
     signinbtn.classList.remove("actived");
 
@@ -40,7 +40,7 @@ signupbtn.addEventListener("click", () => {
 });
 
 signinbtn.addEventListener("click", () => {
-  if (signinbtn.classList.contains("actived") == false) {
+  if (signinbtn.classList.contains("actived") === false) {
     signinbtn.classList.add("actived");
     signupbtn.classList.remove("actived");
 
@@ -53,4 +53,4 @@ signinbtn.addEventListener("click", () => {
     return false;
   }
 });
-//signup password match
+// signup password match

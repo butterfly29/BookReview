@@ -1,9 +1,6 @@
-{%extends "layout.html"%} {%block titile%} Home page {%endblock%} {%block body%}
+{%extends "layout.html"%} {%block title%} Home page {%endblock%} {%block body%}
 <div class="row">
-  <div
-    class="message"
-    style="height: 44px; background: transparent; width: 100%; margin: 10px 0;"
-  >
+  <div class="message" style="height: 44px; background: transparent; width: 100%; margin: 10px 0;">
     {% with messages = get_flashed_messages() %} {%if messages%} {%for i in
     messages %}
     <div class="alert alert-success text-center" role="alert">
@@ -12,8 +9,70 @@
     {%endfor%} {%endif%} {%endwith%}
   </div>
 </div>
-<div class="row">
-  <div class="col-md-3 col-sm-12 home-left">
+<!--section-->
+<section style="width: 68%; float: left;">
+  <div class="row row1">
+    <div class="container">
+      <h2 style="padding-top: 20px; text-align:center">
+        Book Library
+      </h2>
+      <p style="padding: 10px;">This is a presentation website</p>
+    </div>
+  </div>
+  <div class="row row2">
+    <!-- show this table if reviews found  -->
+    <table class="table table-hover table-bordered" style="font-size: 12px; margin-top: 10px">
+      <tr style="background-color: #f3f3f3;">
+        <th colspan="4" style="color: rgb(224, 96, 0); font-weight: bold; text-align: center;">
+          Your reviewed books
+        </th>
+      </tr>
+      <tr>
+        <th>ISBN</th>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Date</th>
+      </tr>
+      {%if reviewedbooks%} {%for i in reviewedbooks %}
+      <tr>
+        <td>
+          <a href="{{url_for('singleBook', isbn = i[3] )}}"> {{i[3]}}</a>
+          <!-- {{i[3]}} -->
+        </td>
+        <td>{{i[1]}}</td>
+        <td>{{i[2]}}</td>
+        <td>{{i[4].strftime("%d %B, %Y") }}</td>
+      </tr>
+      {%endfor%} {%endif%}
+    </table>
+  </div>
+</section>
+<!--sidebar-->
+<aside style="padding-left: 5px; width: 30%; float: right;">
+  <!--Book search card-->
+  <div class="book-search">
+    <div class="container">
+      <form action="/book" method="POST">
+        <div class="form-group">
+          <label for="name" class="text-center">Search your favourite book</label>
+          <input type="search" name="byTitle" id="name" class="form-control mt-1" placeholder="Search by Title"
+            aria-describedby="name" />
+          <input type="search" name="byAuthor" id="name" class="form-control mt-1" placeholder="Search by Author"
+            aria-describedby="name" />
+
+          <input type="number" name="byYear" id="name" class="form-control mt-1" placeholder="Search by Year"
+            aria-describedby="name" />
+          <input type="search" name="byIsbn" id="name" class="form-control mt-1" placeholder="Search by ISBN"
+            aria-describedby="name" />
+        </div>
+        <button type="submit" class="btns actived btn-primary btn-block">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  <!--User Info card-->
+  <div class="info-card">
     {%if userInfo %}
     <div class="card">
       <div class="card-body">
@@ -53,83 +112,44 @@
     </div>
     {%endif%}
   </div>
-  <div class="col-md-6 col-sm-12 home-center">
-    <!-- show this table if reviews found  -->
-    <table class="table table-hover table-bordered" style="font-size: 12px;">
-      <tr style="background-color: #f3f3f3;">
-        <th
-          colspan="4"
-          style="color: #ff105f; font-weight: bold; text-align: center;"
-        >
-          Your reviewed books
-        </th>
-      </tr>
-      <tr>
-        <th>ISBN</th>
-        <th>Rating</th>
-        <th>Comment</th>
-        <th>Date</th>
-      </tr>
-      {%if reviewedbooks%} {%for i in reviewedbooks %}
-      <tr>
-        <td>
-          <a href="{{url_for('singleBook', isbn = i[3] )}}"> {{i[3]}}</a>
-          <!-- {{i[3]}} -->
-        </td>
-        <td>{{i[1]}}</td>
-        <td>{{i[2]}}</td>
-        <td>{{ i[4].strftime("%d %B, %Y") }}</td>
-      </tr>
-      {%endfor%} {%endif%}
-    </table>
-  </div>
-  <!-- home-center finish-->
-  <div class="col-md-3 col-sm-12 home-right">
-    <div class="container">
-      <form action="/book" method="POST">
-        <div class="form-group">
-          <label for="name" class="text-center"
-            >Search Your favourite book</label
-          >
-          <input
-            type="search"
-            name="byTitle"
-            id="name"
-            class="form-control mt-1"
-            placeholder="Search by Title"
-            aria-describedby="name"
-          />
-          <input
-            type="search"
-            name="byAuthor"
-            id="name"
-            class="form-control mt-1"
-            placeholder="Search by Author"
-            aria-describedby="name"
-          />
+</aside>
 
-          <input
-            type="number"
-            name="byYear"
-            id="name"
-            class="form-control mt-1"
-            placeholder="Search by Year"
-            aria-describedby="name"
-          />
-          <input
-            type="search"
-            name="byIsbn"
-            id="name"
-            class="form-control mt-1"
-            placeholder="Search by ISBN"
-            aria-describedby="name"
-          />
-        </div>
+<div class="row gallery-row">
+  <div class="container">
+    <div class="col-md-12, col-sm-12">
+      <div class="gallery">
+        <a target="_blank" href="../static/css/cover1.jpg">
+          <img src="../static/css/cover1.jpg" alt="The end of the ocean" width="200" />
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
 
-        <button type="submit" class="btns actived btn-primary btn-block">
-          Submit
-        </button>
-      </form>
+      <div class="gallery">
+        <a target="_blank" href="../static/css/cover2.jpg">
+          <img src="../static/css/cover2.jpg" alt="A boy in winter" width="200" />
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="../static/css/cover3.jpg">
+          <img src="../static/css/cover3.jpg" alt="Where the crowdads sing" width="200" />
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="../static/css/cover4.jpg">
+          <img src="../static/css/cover4.jpg" alt="The dress and the girl" width="200" />
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
+      <div class="gallery">
+        <a target="_blank" href="../static/css/cover4.jpg">
+          <img src="../static/css/cover5.jpg" alt="The tiny dragon" width="200" />
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div>
     </div>
   </div>
 </div>

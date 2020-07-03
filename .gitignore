@@ -11,3 +11,6 @@
   *.temp
    *~
 node_modules
+
+venv
+heroku-postgress.txt
