@@ -31,7 +31,6 @@
         <th>ISBN</th>
         <th>Rating</th>
         <th>Comment</th>
-        <th>Date</th>
       </tr>
       {%if reviewedbooks%} {%for i in reviewedbooks %}
       <tr>
@@ -41,7 +40,6 @@
         </td>
         <td>{{i[1]}}</td>
         <td>{{i[2]}}</td>
-        <td>{{i[4].strftime("%d %B, %Y") }}</td>
       </tr>
       {%endfor%} {%endif%}
     </table>

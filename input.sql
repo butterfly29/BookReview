@@ -19,8 +19,8 @@ CREATE TABLE users
 
 CREATE TABLE reviews
 (
-    email VARCHAR NOT NULL,
-    rating INTEGER NOT NULL,
-    comment VARCHAR(1200) NOT NULL,
-    isbn VARCHAR NOT NULL
-);      
+    email varchar(100) NOT NULL,
+    rating integer NOT NULL,
+    comment varchar(1200) NOT NULL,
+    isbn varchar(100) NOT NULL
+);    

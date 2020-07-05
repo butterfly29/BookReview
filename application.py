@@ -5,6 +5,7 @@ from datetime import timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+import simplejson
 import urllib3
 import psycopg2
 import requests
@@ -23,6 +24,7 @@ if not os.getenv("DATABASE_URL"):
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.secret_key = "hello"
 Session(app)
 
 # Set up database

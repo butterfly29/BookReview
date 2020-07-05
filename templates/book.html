@@ -23,22 +23,22 @@
                 {%for i in dbdata%}
                 <tr>
                     <th>Title</th>
-                    <th class="title">{{i[2]}}</th>
+                    <th class="title">{{i[1]}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th>Author</th>
-                    <td>{{i[3]}}</td>
+                    <td>{{i[2]}}</td>
                 </tr>
                 <tr>
                     <th>Year</th>
-                    <td>{{i[4]}}</td>
+                    <td>{{i[3]}}</td>
                 </tr>
                 <tr>
                     <th>ISBN</th>
                     <td>
-                        <a href="{{url_for('api' , isbn  = i[1]) }}"> {{i[1]}}</a>
+                        <a href="{{url_for('api' , isbn  = i[4]) }}"> {{i[4]}}</a>
                     </td>
                 </tr>
                 {%endfor%}
@@ -75,8 +75,6 @@
             <span> {{i[0]}} </span>
             <span> Rating: </span>
             <span> {{i[1]}} </span>
-            <span>Date: </span>
-            <span> {{ i[4].strftime("%d %B, %Y") }} </span>
             <span>Comment:</span>
             <span> {{i[2]}} </span>
         </div>
@@ -110,7 +108,7 @@
                     <td>ISBN</td>
                     <td>
                         {%for i in dbdata %}
-                        <input type="text" class="form-control disabled" name="isbn" value="{{i[1]}}" readonly />
+                        <input type="text" class="form-control disabled" name="isbn" value="{{i[4]}}" readonly />
                         {%endfor%}
                     </td>
                 </tr>
