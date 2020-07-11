@@ -28,8 +28,8 @@ for title, author, year, isbn in reader:
     if title == "title":
         print("Skipping 1st row")
     else:
-        db.execute("INSERT INTO books (title, author, year, isbn) VALUES (:title, :author, :year, :isbn)", {
-            "title": title, "author": author, "year": year, "isbn": isbn})
+        db.execute("INSERT INTO public.books (isbn, title, author, year) VALUES (:isbn, :title, :author, :year)", {
+            "isbn": isbn, "title": title, "author": author, "year": year})
         print(f"{i} book added successfully at {endtime}")
 
 db.commit()

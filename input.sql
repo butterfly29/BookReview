@@ -1,11 +1,11 @@
 CREATE TABLE books
 (
     id SERIAL NOT NULL,
-    title VARCHAR NOT NULL,
-    author VARCHAR NOT NULL,
-    year INTEGER NOT NULL,
-    isbn VARCHAR NOT NULL,
-    PRIMARY KEY(isbn)
+    isbn varchar(100) NOT NULL,
+    title varchar (100) NOT NULL,
+    author varchar(100) NOT NULL,
+    year integer NOT NULL,
+    PRIMARY KEY (isbn)
 );
 
 CREATE TABLE users
