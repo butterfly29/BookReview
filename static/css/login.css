@@ -99,15 +99,15 @@ body {
 }*/
 
 .login-wrapper h4.card-title {
-  font-size: 30px;
+  font-size: 35px;
   text-align: center;
-  color: rgb(224, 96, 0);
+  color: rgb(61, 97, 79);
 }
 
 .login-wrapper p.card-text {
   text-align: center;
-  color: rgb(224, 96, 0);
-  font-size: 20px;
+  color: rgb(61, 97, 79);
+  font-size: 25px;
 }
 
 .row {

@@ -1,6 +1,9 @@
 {%extends "layout.html"%} {%block title%} Home page {%endblock%} {%block body%}
 <div class="row">
-  <div class="message" style="height: 44px; background: transparent; width: 100%; margin: 10px 0;">
+  <div
+    class="message"
+    style="height: 44px; background: transparent; width: 100%; margin: 10px 0;"
+  >
     {% with messages = get_flashed_messages() %} {%if messages%} {%for i in
     messages %}
     <div class="alert alert-success text-center" role="alert">
@@ -13,17 +16,28 @@
 <section style="width: 68%; float: left;">
   <div class="row row1">
     <div class="container">
-      <h2 style="padding-top: 20px; text-align:center">
-        Book Library
+      <h2 style="padding-top: 20px; text-align: center;">
+        Book Review App
       </h2>
-      <p style="padding: 10px;">This is a presentation website</p>
+      <p style="padding: 20px 10px 10px 10px; text-align: center;">
+        This is a presentation app, build with JavaScript, Python, Flask and
+        SQL.
+        <br />
+        Users can Login, search for their favourite book and leave a review.
+      </p>
     </div>
   </div>
   <div class="row row2">
     <!-- show this table if reviews found  -->
-    <table class="table table-hover table-bordered" style="font-size: 12px; margin-top: 10px">
+    <table
+      class="table table-hover table-bordered"
+      style="font-size: 12px; margin-top: 10px;"
+    >
       <tr style="background-color: #f3f3f3;">
-        <th colspan="4" style="color: rgb(224, 96, 0); font-weight: bold; text-align: center;">
+        <th
+          colspan="4"
+          style="color: rgb(224, 96, 0); font-weight: bold; text-align: center;"
+        >
           Your reviewed books
         </th>
       </tr>
@@ -52,16 +66,42 @@
     <div class="container">
       <form action="/book" method="POST">
         <div class="form-group">
-          <label for="name" class="text-center">Search your favourite book</label>
-          <input type="search" name="byTitle" id="name" class="form-control mt-1" placeholder="Search by Title"
-            aria-describedby="name" />
-          <input type="search" name="byAuthor" id="name" class="form-control mt-1" placeholder="Search by Author"
-            aria-describedby="name" />
+          <label for="name" class="text-center"
+            >Search your favourite book</label
+          >
+          <input
+            type="search"
+            name="byTitle"
+            id="name"
+            class="form-control mt-1"
+            placeholder="Search by Title"
+            aria-describedby="name"
+          />
+          <input
+            type="search"
+            name="byAuthor"
+            id="name"
+            class="form-control mt-1"
+            placeholder="Search by Author"
+            aria-describedby="name"
+          />
 
-          <input type="number" name="byYear" id="name" class="form-control mt-1" placeholder="Search by Year"
-            aria-describedby="name" />
-          <input type="search" name="byIsbn" id="name" class="form-control mt-1" placeholder="Search by ISBN"
-            aria-describedby="name" />
+          <input
+            type="number"
+            name="byYear"
+            id="name"
+            class="form-control mt-1"
+            placeholder="Search by Year"
+            aria-describedby="name"
+          />
+          <input
+            type="search"
+            name="byIsbn"
+            id="name"
+            class="form-control mt-1"
+            placeholder="Search by ISBN"
+            aria-describedby="name"
+          />
         </div>
         <button type="submit" class="btns actived btn-primary btn-block">
           Submit
@@ -117,34 +157,54 @@
     <div class="col-md-12, col-sm-12">
       <div class="gallery">
         <a target="_blank" href="../static/css/cover1.jpg">
-          <img src="../static/css/cover1.jpg" alt="The end of the ocean" width="200" />
+          <img
+            src="../static/css/cover1.jpg"
+            alt="The end of the ocean"
+            width="200"
+          />
         </a>
         <div class="desc">Add a description of the image here</div>
       </div>
 
       <div class="gallery">
         <a target="_blank" href="../static/css/cover2.jpg">
-          <img src="../static/css/cover2.jpg" alt="A boy in winter" width="200" />
+          <img
+            src="../static/css/cover2.jpg"
+            alt="A boy in winter"
+            width="200"
+          />
         </a>
         <div class="desc">Add a description of the image here</div>
       </div>
 
       <div class="gallery">
         <a target="_blank" href="../static/css/cover3.jpg">
-          <img src="../static/css/cover3.jpg" alt="Where the crowdads sing" width="200" />
+          <img
+            src="../static/css/cover3.jpg"
+            alt="Where the crowdads sing"
+            width="200"
+          />
         </a>
         <div class="desc">Add a description of the image here</div>
       </div>
 
       <div class="gallery">
         <a target="_blank" href="../static/css/cover4.jpg">
-          <img src="../static/css/cover4.jpg" alt="The dress and the girl" width="200" />
+          <img
+            src="../static/css/cover4.jpg"
+            alt="The dress and the girl"
+            width="200"
+          />
         </a>
         <div class="desc">Add a description of the image here</div>
       </div>
       <div class="gallery">
         <a target="_blank" href="../static/css/cover4.jpg">
-          <img src="../static/css/cover5.jpg" alt="The tiny dragon" width="200" />
+          <img
+            src="../static/css/cover5.jpg"
+            alt="The tiny dragon"
+            width="200"
+          />
         </a>
         <div class="desc">Add a description of the image here</div>
       </div>

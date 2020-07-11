@@ -223,7 +223,7 @@ def singleBook(isbn):
             db.execute("INSERT into public.reviews (email, rating, comment, isbn) Values (:email, :rating, :comment, :isbn)", {
                        'email': email, 'rating': rating, 'comment': comment, 'isbn': fisbn})
             db.commit()
-            flash('Awesome, Your review added successfully ')
+            flash('Nice! You added a review.')
 
     if apiCall:
         return render_template('book.html', apidata=apidata, dbdata=dbdata, dbreviews=dbreviews, isbn=isbn)
@@ -251,8 +251,8 @@ def api(isbn):
             "review_count": work_ratings_count,
             "average_rating": average_rating
         }
-        # api=json.dumps(x)
-        # return render_template("api.json",api=api)
+        #api = json.dumps(x)
+        # return render_template("api.json", api=api)
         return jsonify(x)
 
 
