@@ -63,18 +63,6 @@ body {
   color: rgb(61, 61, 61);
 }
 
-.form input,
-.form input:actived,
-.form input:focus {
-  border: 0;
-  outline: none;
-  background: transparent;
-  box-shadow: inset -2px -2px 5px #fff, inset 2px 2px 5px #0000001c;
-  border-radius: 30px;
-  color: #ff105f;
-  font-size: 16px;
-}
-
 .login-btn {
   background: linear-gradient(to right, rgb(224, 96, 0), #ffad06);
   box-shadow: -3px -3px 5px #fff, 2px 2px 5px #0a0a0a47;

@@ -20,7 +20,7 @@ f = open("books.csv")
 reader = csv.reader(f)
 i = 1
 endtime = None
-for title, author, year, isbn in reader:
+for isbn, title, author, year in reader:
 
     i += 1
     endtime = datetime.datetime.now()
