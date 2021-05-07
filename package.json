@@ -13,7 +13,7 @@
     "bootstrap": "^4.5.0",
     "resolve-url": "^0.2.1",
     "typescript": "^3.9.5",
-    "underscore": "^1.10.2"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "-": "0.0.1",
